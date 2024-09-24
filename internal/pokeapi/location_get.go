@@ -30,18 +30,18 @@ func (c *Client) GetLocation(locationName string) (Location, error) {
 	}
 	defer resp.Body.Close()
 
-	dat, err := io.ReadAll(resp.Body)
+	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return Location{}, err
 	}
 
 	locationRes := Location{}
-	err = json.Unmarshal(dat, &locationRes)
+	err = json.Unmarshal(data, &locationRes)
 	if err != nil {
 		return Location{}, err
 	}
 
-	c.cache.Add(url, dat)
+	c.cache.Add(url, data)
 
 	return locationRes, nil
 }
